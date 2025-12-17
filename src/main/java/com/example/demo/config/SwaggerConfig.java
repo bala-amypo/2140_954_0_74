@@ -19,3 +19,5 @@ public class SwaggerConfig {
                 ));
         }
 }
+mkdir -p src/main/java/com/example/demo/entity
+nano src/main/java/com/example/demo/entity/Student.java
