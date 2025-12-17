@@ -17,14 +17,18 @@ public class StudentServiceImpl implements StudentService {
         store .put(st.getId(), st);
         return st;
     }
-
     @Override
     public List<Student> getAllStudents() {
+        return new ArrayList<>(Store.values());
+    }
+    @Override
+    public Optional<Student> getOneStudent(Long id) {
         return Optional.ofNullable(store.get(id));
     }
-
     @Override
     public void deleteStudent(Long id){
         store.remove(id);
     }
 }
+
+
