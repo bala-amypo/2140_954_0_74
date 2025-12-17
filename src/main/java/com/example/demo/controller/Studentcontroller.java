@@ -29,7 +29,24 @@ public class Studentcontroller {
     public List<Studententity> getAllStudents() {
         return ser.getAllStudententity();
     }
-    
+
+    @GetMapping("/get/{id}")
+    public Optional<Studententity> getStudent(@PathVariable Long id) {
+        return ser.getOneStudent(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public String  updateStudent(@PathVariable Long id , @RequestBody Studententity newStudententity) {
+        Optional<Studententity> student = ser.getOneStudent(id);
+        if(student.isPresent()) {
+            newStudententity.setId(id);
+            ser.insertStudententity(newStudententity);
+            return "Updated Successfully";
+        }
+        return "Id not found";
+    }
+
+    @DeleteMapping("/del/{id}")
 
 
 }
