@@ -23,6 +23,12 @@ public class Studententity {
         this.email = email;
     }
     public Studententity(int id, String name, String email) {
-        this.id 
+        this.id = (long) id;
+        this.name = name;
+        this.email = email;
     }
+    public Studententity() {
+    }
+
+    
 }
