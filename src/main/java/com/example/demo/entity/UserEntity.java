@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "users") // table name in DB
+@Table(name = "users")
 public class UserEntity {
 
     @Id
@@ -16,7 +16,7 @@ public class UserEntity {
     private Double cgpa;
     private LocalDate dob;
 
-    // Getters and setters
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
