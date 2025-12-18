@@ -20,32 +20,35 @@ public class VehicleController {
 
     // CREATE
     @PostMapping
-    public VehicleEntity postVehicle(@RequestBody VehicleEntity vehicle) {
-        return vehicleService.insertVehicle(vehicle);
+    public VehicleEntity createVehicle(@RequestBody VehicleEntity vehicle) {
+        return vehicleService.saveVehicle(vehicle);
     }
 
     // READ ALL
     @GetMapping
-    public List<VehicleEntity> getAll() {
+    public List<VehicleEntity> getAllVehicles() {
         return vehicleService.getAllVehicles();
     }
 
     // READ ONE
     @GetMapping("/{id}")
-    public Optional<VehicleEntity> getById(@PathVariable Long id) {
-        return vehicleService.getOneVehicle(id);
+    public Optional<VehicleEntity> getVehicleById(@PathVariable Long id) {
+        return vehicleService.getVehicleById(id);
     }
 
     // UPDATE
     @PutMapping("/{id}")
-    public String updateVehicle(@PathVariable Long id, @RequestBody VehicleEntity vehicle) {
-        VehicleEntity updated = vehicleService.updateVehicle(id, vehicle);
-        return updated != null ? "Updated Successfully ✅" : "Vehicle Not Found ❌";
+    public VehicleEntity updateVehicle(
+            @PathVariable Long id,
+            @RequestBody VehicleEntity vehicle) {
+
+        return vehicleService.updateVehicle(id, vehicle);
     }
 
     // DELETE
     @DeleteMapping("/{id}")
     public String deleteVehicle(@PathVariable Long id) {
-        return vehicleService.deleteVehicle(id) ? "Deleted Successfully ✅" : "Vehicle Not Found ❌";
+        vehicleService.deleteVehicle(id);
+        return "Vehicle deleted successfully ✅";
     }
 }
