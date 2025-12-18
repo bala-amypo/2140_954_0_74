@@ -11,4 +11,4 @@ public class DemoApplication {
 	}
 
 }
-ls -ld /var/lib/mysql/transport_pro
+
