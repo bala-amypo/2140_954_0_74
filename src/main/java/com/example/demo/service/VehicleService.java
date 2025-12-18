@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.VehicleEntity;
 import com.example.demo.repository.VehicleRepo;
 
@@ -17,7 +16,7 @@ public class VehicleService {
         this.vehicleRepo = vehicleRepo;
     }
 
-    // CREATE / UPDATE
+    // CREATE
     public VehicleEntity insertVehicle(VehicleEntity vehicle) {
         return vehicleRepo.save(vehicle);
     }
@@ -32,8 +31,24 @@ public class VehicleService {
         return vehicleRepo.findById(id);
     }
 
+    // UPDATE
+    public VehicleEntity updateVehicle(Long id, VehicleEntity newVehicle) {
+        return vehicleRepo.findById(id)
+            .map(vehicle -> {
+                vehicle.setMake(newVehicle.getMake());
+                vehicle.setModel(newVehicle.getModel());
+                vehicle.setYear(newVehicle.getYear());
+                vehicle.setColor(newVehicle.getColor());
+                return vehicleRepo.save(vehicle);
+            }).orElse(null);
+    }
+
     // DELETE
-    public void deleteVehicle(Long id) {
-        vehicleRepo.deleteById(id);
+    public boolean deleteVehicle(Long id) {
+        if (vehicleRepo.existsById(id)) {
+            vehicleRepo.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
