@@ -9,60 +9,60 @@ import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
 @RestController
-@RequestMapping("/Users") // ✅ base path
+@RequestMapping("/users")
 public class UserController {
 
-    private final UserController userController;
+    private final UserService userService;
 
-    public UserController(UserController userController) {
-        this.userController = userController;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     // CREATE
     @PostMapping
-    public User postUser(@RequestBody User us) {
-        return userController.insertUser(us);
+    public User createUser(@RequestBody User user) {
+        return userService.insertUser(user);
     }
 
     // READ ALL
     @GetMapping
-    public List<User> getAll() {
-        return userController.getAllUsers();
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     // READ ONE
     @GetMapping("/{id}")
-    public Optional<User> getById(@PathVariable Long id) {
-        return userController.getOneUser(id);
+    public Optional<User> getUserById(@PathVariable Long id) {
+        return userService.getOneUser(id);
     }
 
     // UPDATE
     @PutMapping("/{id}")
-    public String updateUser(@PathVariable Long id, @RequestBody User us) {
+    public String updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         Optional<User> userOpt = userService.getOneUser(id);
 
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            User.setName(st.getName());
-            User.setEmail(st.getEmail());
-            User.setCgpa(st.getCgpa());
-            User.setDob(st.getDob());
+            user.setName(userDetails.getName());
+            user.setEmail(userDetails.getEmail());
+            user.setCgpa(userDetails.getCgpa());
+            user.setDob(userDetails.getDob());
 
-            studentService.insertStudent(student);
-            return "Updated Successfully ✅";
+            userService.insertUser(user); // save updated user
+            return "User Updated Successfully ✅";
         }
-        return "Student Not Found ❌";
+        return "User Not Found ❌";
     }
 
     // DELETE
     @DeleteMapping("/{id}")
-    public String deleteStudent(@PathVariable Long id) {
-        Optional<Student> student = studentService.getOneStudent(id);
+    public String deleteUser(@PathVariable Long id) {
+        Optional<User> userOpt = userService.getOneUser(id);
 
-        if (student.isPresent()) {
-            studentService.deleteStudent(id);
-            return "Deleted Successfully ✅";
+        if (userOpt.isPresent()) {
+            userService.deleteUser(id);
+            return "User Deleted Successfully ✅";
         }
-        return "Student Not Found ❌";
+        return "User Not Found ❌";
     }
 }
