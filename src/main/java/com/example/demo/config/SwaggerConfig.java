@@ -19,5 +19,3 @@ public class SwaggerConfig {
         }
 }
 
-ps -ef | grep java
-kill -9 <PID>
