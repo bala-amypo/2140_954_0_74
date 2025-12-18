@@ -49,4 +49,3 @@ public class VehicleController {
         return vehicleService.deleteVehicle(id) ? "Deleted Successfully ✅" : "Vehicle Not Found ❌";
     }
 }
-ss -lntp | grep 9001
