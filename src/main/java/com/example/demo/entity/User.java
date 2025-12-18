@@ -1,25 +1,15 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "user")
 public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String name;
     private String email;
     private Double cgpa;
     private LocalDate dob;
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
+    // Getters and setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
