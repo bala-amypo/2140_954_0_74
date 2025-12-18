@@ -11,3 +11,13 @@ public class DemoApplication {
 	}
 
 }
+
+SELECT 
+    SCHEMA_NAME,
+    DEFAULT_CHARACTER_SET_NAME,
+    DEFAULT_COLLATION_NAME,
+    CREATE_TIME
+FROM 
+    information_schema.SCHEMATA
+WHERE 
+    SCHEMA_NAME = 'transport_pro';
