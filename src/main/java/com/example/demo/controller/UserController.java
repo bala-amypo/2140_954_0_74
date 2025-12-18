@@ -10,43 +10,43 @@ import com.example.demo.service.UserService;
 
 @RestController
 @RequestMapping("/Users") // ✅ base path
-public class StudentController {
+public class UserController {
 
-    private final StudentService studentService;
+    private final UserController userController;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    public UserController(UserController userController) {
+        this.userController = userController;
     }
 
     // CREATE
     @PostMapping
-    public Student postStudent(@RequestBody Student st) {
-        return studentService.insertStudent(st);
+    public User postUser(@RequestBody User us) {
+        return userController.insertUser(us);
     }
 
     // READ ALL
     @GetMapping
-    public List<Student> getAll() {
-        return studentService.getAllStudents();
+    public List<User> getAll() {
+        return userController.getAllUsers();
     }
 
     // READ ONE
     @GetMapping("/{id}")
-    public Optional<Student> getById(@PathVariable Long id) {
-        return studentService.getOneStudent(id);
+    public Optional<User> getById(@PathVariable Long id) {
+        return userController.getOneUser(id);
     }
 
     // UPDATE
     @PutMapping("/{id}")
-    public String updateStudent(@PathVariable Long id, @RequestBody Student st) {
-        Optional<Student> studentOpt = studentService.getOneStudent(id);
+    public String updateUser(@PathVariable Long id, @RequestBody User us) {
+        Optional<User> userOpt = userService.getOneUser(id);
 
-        if (studentOpt.isPresent()) {
-            Student student = studentOpt.get();
-            student.setName(st.getName());
-            student.setEmail(st.getEmail());
-            student.setCgpa(st.getCgpa());
-            student.setDob(st.getDob());
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            User.setName(st.getName());
+            User.setEmail(st.getEmail());
+            User.setCgpa(st.getCgpa());
+            User.setDob(st.getDob());
 
             studentService.insertStudent(student);
             return "Updated Successfully ✅";
