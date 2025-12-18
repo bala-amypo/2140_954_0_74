@@ -1,49 +1,29 @@
-package com.example.demo.service;
+public VehicleEntity insertVehicle(VehicleEntity vehicle) {
+    return vehicleRepo.save(vehicle);
+}
 
-import java.util.List;
-import java.util.Optional;
+public List<VehicleEntity> getAllVehicles() {
+    return vehicleRepo.findAll();
+}
 
-import org.springframework.stereotype.Service;
+public Optional<VehicleEntity> getOneVehicle(Long id) {
+    return vehicleRepo.findById(id);
+}
 
-import com.example.demo.entity.VehicleEntity;
-import com.example.demo.repository.VehicleRepo;
+public VehicleEntity updateVehicle(Long id, VehicleEntity newVehicle) {
+    return vehicleRepo.findById(id)
+            .map(vehicle -> {
+                vehicle.setBrand(newVehicle.getBrand());
+                vehicle.setModel(newVehicle.getModel());
+                vehicle.setYear(newVehicle.getYear());
+                return vehicleRepo.save(vehicle);
+            }).orElse(null);
+}
 
-@Service
-public class VehicleService {
-
-    private final VehicleRepo vehicleRepo;
-
-    public VehicleService(VehicleRepo vehicleRepo) {
-        this.vehicleRepo = vehicleRepo;
-    }
-
-    // CREATE
-    public VehicleEntity saveVehicle(VehicleEntity vehicle) {
-        return vehicleRepo.save(vehicle);
-    }
-
-    // READ ALL
-    public List<VehicleEntity> getAllVehicles() {
-        return vehicleRepo.findAll();
-    }
-
-    // READ ONE
-    public Optional<VehicleEntity> getVehicleById(Long id) {
-        return vehicleRepo.findById(id);
-    }
-
-    // UPDATE
-    public VehicleEntity updateVehicle(Long id, VehicleEntity newVehicle) {
-        return vehicleRepo.findById(id).map(vehicle -> {
-            vehicle.setBrand(newVehicle.getBrand());
-            vehicle.setModel(newVehicle.getModel());
-            vehicle.setYear(newVehicle.getYear());
-            return vehicleRepo.save(vehicle);
-        }).orElse(null);
-    }
-
-    // DELETE
-    public void deleteVehicle(Long id) {
+public boolean deleteVehicle(Long id) {
+    if (vehicleRepo.existsById(id)) {
         vehicleRepo.deleteById(id);
+        return true;
     }
+    return false;
 }
