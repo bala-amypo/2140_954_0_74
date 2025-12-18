@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
 import com.example.demo.entity.VehicleEntity;
 import com.example.demo.repository.VehicleRepo;
 
@@ -17,7 +18,7 @@ public class VehicleService {
     }
 
     // CREATE
-    public VehicleEntity insertVehicle(VehicleEntity vehicle) {
+    public VehicleEntity saveVehicle(VehicleEntity vehicle) {
         return vehicleRepo.save(vehicle);
     }
 
@@ -27,28 +28,22 @@ public class VehicleService {
     }
 
     // READ ONE
-    public Optional<VehicleEntity> getOneVehicle(Long id) {
+    public Optional<VehicleEntity> getVehicleById(Long id) {
         return vehicleRepo.findById(id);
     }
 
     // UPDATE
     public VehicleEntity updateVehicle(Long id, VehicleEntity newVehicle) {
-        return vehicleRepo.findById(id)
-            .map(vehicle -> {
-                vehicle.setMake(newVehicle.getMake());
-                vehicle.setModel(newVehicle.getModel());
-                vehicle.setYear(newVehicle.getYear());
-                vehicle.setColor(newVehicle.getColor());
-                return vehicleRepo.save(vehicle);
-            }).orElse(null);
+        return vehicleRepo.findById(id).map(vehicle -> {
+            vehicle.setBrand(newVehicle.getBrand());
+            vehicle.setModel(newVehicle.getModel());
+            vehicle.setYear(newVehicle.getYear());
+            return vehicleRepo.save(vehicle);
+        }).orElse(null);
     }
 
     // DELETE
-    public boolean deleteVehicle(Long id) {
-        if (vehicleRepo.existsById(id)) {
-            vehicleRepo.deleteById(id);
-            return true;
-        }
-        return false;
+    public void deleteVehicle(Long id) {
+        vehicleRepo.deleteById(id);
     }
 }
